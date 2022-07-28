@@ -12,9 +12,6 @@ import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
 import '../model/pump_data_model.dart';
 
-
-
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -23,19 +20,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-
-
   SharedPreferences? prefs;
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    context.read<HomeCubit>().getLastDataPump();
+    context.read<HomeCubit>().getLastData();
   }
+
   DataModel? model;
   PumpDataModel? pumpDataModel;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -43,32 +36,31 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color(0xffE7ECEF),
       appBar: AppBar(
-        title: const Text('Burjar GES'),
-
+        title: const Text('Piskon Suv Ombori'),
       ),
-      body: BlocListener<HomeCubit,HomeState>(
-         listener: (context,state){
-           if(state is HomeStateLoading){
-
-           }else if( state is LastDataState){
-             setState((){
-               model=state.dataModel;
-             });
-           }else if( state is ErrorHomeState){
-             print(state.message);
-           }else if(state is LastDataPumpState){
-             setState((){
-               pumpDataModel=state.dataModel;
-             });
-           }
-         },
+      body: BlocListener<HomeCubit, HomeState>(
+        listener: (context, state) {
+          print(state);
+          if (state is HomeStateLoading) {
+          } else if (state is LastDataState) {
+            setState(() {
+              model = state.dataModel;
+              print(model);
+            });
+          } else if (state is ErrorHomeState) {
+            print(state.message);
+          } else if (state is LastDataPumpState) {
+            setState(() {
+              pumpDataModel = state.dataModel;
+            });
+          }
+        },
         child: Stack(
           children: [
             Align(
               alignment: Alignment.center,
               child: Card(
                 elevation: 3,
-
                 child: Container(
                   width: size.width * 0.9,
                   height: 270,
@@ -80,98 +72,88 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
-                        child: Text("Kuzatuv nuqtasi-1", style: GoogleFonts.poppins(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),),
+                        child: Text(
+                          "Kuzatuv nuqtasi-1",
+                          style: GoogleFonts.poppins(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                       Column(children: [
-                         Padding(
-                           padding: const EdgeInsets.only(top: 20),
-                           child: Text("Suv tezligi:", style: GoogleFonts.poppins(
-                             fontSize: 20,
-                             fontWeight: FontWeight.w600,
-                           ),),
-                         ),
-                         Center(
-                           child: Padding(
-                             padding: const EdgeInsets.only(top: 10),
-                             child: Text(pumpDataModel==null?"":num.parse(pumpDataModel!.sped.toString()).toStringAsFixed(2)+" m/s", style: GoogleFonts.poppins(
-                               fontSize: 35,
-                               fontWeight: FontWeight.w600,
-                             ),),
-                           ),
-                         ),
-                       ],),
-
-                       Column(children: [
-                         Padding(
-                           padding: const EdgeInsets.only(top: 20),
-                           child: Text("Suv hajmi:", style: GoogleFonts.poppins(
-                             fontSize: 20,
-                             fontWeight: FontWeight.w600,
-                           ),),
-                         ),
-                         Center(
-                           child: Padding(
-                             padding: const EdgeInsets.only(top: 10),
-                             child: Text(pumpDataModel==null?"": num.parse(pumpDataModel!.flowsped.toString()).toStringAsFixed(2)+" m3/s", style: GoogleFonts.poppins(
-                               fontSize: 35,
-                               fontWeight: FontWeight.w600,
-                             ),),
-                           ),
-                         ),
-                       ],),
-                       ],),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(top: 20),
-                      //   child: Text("Suv Sathi:", style: GoogleFonts.poppins(
-                      //     fontSize: 16,
-                      //     fontWeight: FontWeight.w600,
-                      //   ),),
-                      // ),
-                      // Center(
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.only(top: 10),
-                      //     child: Text(model==null?"": ((((int.parse(model!.data)+450))/100.0)+990).toStringAsFixed(2), style: GoogleFonts.poppins(
-                      //       fontSize: 40,
-                      //       fontWeight: FontWeight.w600,
-                      //     ),),
-                      //   ),
-                      // ),
-
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Text(
+                          "Suv Sathi:",
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10),
-                          child: Text( pumpDataModel==null ? "Ma'lumot yaqin 30 mintda keladi." :"O'lchash vaqti: ${pumpDataModel!.time}", style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),),
+                          child: Text(
+                            model == null
+                                ? ""
+                                : ((((int.parse(model!.data) + 662)) / 100.0) +
+                                        990)
+                                    .toStringAsFixed(2),
+                            style: GoogleFonts.poppins(
+                              fontSize: 40,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Text(
+                            pumpDataModel == null
+                                ? "Ma'lumot yaqin 30 mintda keladi."
+                                : "O'lchash vaqti: ${model!.time}",
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
                       ),
                       Center(
                         child: Row(
-                         crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 10,right: 20),
-                              child: IconButton(onPressed: (){
-                                context.read<HomeCubit>().getLastDataPump();
-                              }, icon: Icon(Icons.refresh,color: Colors.blue,size: 50,)),
+                              padding:
+                                  const EdgeInsets.only(top: 10, right: 20),
+                              child: IconButton(
+                                  onPressed: () {
+                                    context.read<HomeCubit>().getLastDataPump();
+                                  },
+                                  icon: Icon(
+                                    Icons.refresh,
+                                    color: Colors.blue,
+                                    size: 50,
+                                  )),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 10),
-                              child: IconButton(onPressed: (){
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => const HistoryPage()),
-                                );
-                              }, icon: Icon(Icons.history,color: Colors.blue,size: 50,)),
+                              child: IconButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const HistoryPage()),
+                                    );
+                                  },
+                                  icon: Icon(
+                                    Icons.history,
+                                    color: Colors.blue,
+                                    size: 50,
+                                  )),
                             ),
                           ],
                         ),
@@ -186,6 +168,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-
 }
