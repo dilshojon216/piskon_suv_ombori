@@ -100,7 +100,7 @@ class _HistoryPageState extends State<HistoryPage> {
           ),
         )),
         DataCell(Text(
-            ((((int.parse(userInfo.data) + 662)) / 100.0) + 990)
+            ((((int.parse(userInfo.data) + 3687)) / 100.0) + 990)
                 .toStringAsFixed(2),
             style: GoogleFonts.poppins(
               fontSize: 14,
