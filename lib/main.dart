@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       create: (context)=>HomeCubit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Burjar GES',
+        title: 'Piskon Suv Ombori',
         theme: ThemeData(
           // is not restarted.
 
