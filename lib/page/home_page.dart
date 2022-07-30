@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                           child: Text(
                             model == null
                                 ? ""
-                                : ((((int.parse(model!.data) + 662)) / 100.0) +
+                                : ((((int.parse(model!.data) + 3687)) / 100.0) +
                                         990)
                                     .toStringAsFixed(2),
                             style: GoogleFonts.poppins(
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: Text(
-                            pumpDataModel == null
+                            model == null
                                 ? "Ma'lumot yaqin 30 mintda keladi."
                                 : "O'lchash vaqti: ${model!.time}",
                             style: GoogleFonts.poppins(
@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                                   const EdgeInsets.only(top: 10, right: 20),
                               child: IconButton(
                                   onPressed: () {
-                                    context.read<HomeCubit>().getLastDataPump();
+                                    context.read<HomeCubit>().getLastData();
                                   },
                                   icon: Icon(
                                     Icons.refresh,
@@ -169,3 +169,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
